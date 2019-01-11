@@ -22,6 +22,7 @@ $aliases = [
     '@runtime'    => '@root/runtime',
     '@configs'    => '@root/config',
     '@resources'  => '@root/resources',
+    '@public'     => '@root/public',
     '@beans'      => '@configs/beans',
     '@properties' => '@configs/properties',
     '@console'    => '@beans/console.php',

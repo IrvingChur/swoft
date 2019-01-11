@@ -1,87 +1,196 @@
 <?php
-/**
- * This file is part of Swoft.
- *
- * @link https://swoft.org
- * @document https://doc.swoft.org
- * @contact group@swoft.org
- * @license https://github.com/swoft-cloud/swoft/blob/master/LICENSE
- */
-
 namespace App\Models\Entity;
 
+use Swoft\Db\Model;
+use Swoft\Db\Bean\Annotation\Column;
+use Swoft\Db\Bean\Annotation\Entity;
 use Swoft\Db\Bean\Annotation\Id;
 use Swoft\Db\Bean\Annotation\Required;
 use Swoft\Db\Bean\Annotation\Table;
-use Swoft\Db\Bean\Annotation\Column;
-use Swoft\Db\Bean\Annotation\Entity;
-use Swoft\Db\Model;
 use Swoft\Db\Types;
 
 /**
- * 用户实体
- *
  * @Entity()
  * @Table(name="user")
  * @uses      User
- * @version   2017年08月23日
- * @author    stelin <phpcrazy@126.com>
- * @copyright Copyright 2010-2016 Swoft software
- * @license   PHP Version 7.x {@link http://www.php.net/license/3_0.txt}
  */
 class User extends Model
 {
+    // 用户类型
+    const USER_TYPE_NORMAL = 0; //普通
+    const USER_TYPE_ADMIN = 1; //管理员
+
+    // 用户状态
+    const USER_STATUS_NORMAL = 0; //正常
+    const USER_STATUS_DISABLED = 1; //禁用
+
+
     /**
-     * 主键ID
-     *
+     * @var int $id 主键ID
      * @Id()
-     * @Column(name="id", type=Types::INT)
-     * @var null|int
+     * @Column(name="id", type="integer")
      */
     private $id;
 
     /**
-     * 名称
-     *
-     * @Column(name="name", type=Types::STRING, length=20)
-     * @Required()
-     * @var null|string
+     * @var string $nickname 用户昵称
+     * @Column(name="nickname", type="string", length=25, default="")
      */
-    private $name;
+    private $nickname;
 
     /**
-     * 年龄
-     *
-     * @Column(name="age", type=Types::INT)
-     * @var int
+     * @var string $photoUrl 用户头像Url
+     * @Column(name="photo_url", type="string", length=100, default="")
      */
-    private $age = 0;
+    private $photoUrl;
 
     /**
-     * 性别
-     *
-     * @Column(name="sex", type="int")
-     * @var int
+     * @var string $account 用户账号
+     * @Column(name="account", type="string", length=25, default="")
      */
-    private $sex = 0;
+    private $account;
 
     /**
-     * 描述
-     *
-     * @Column(name="description", type="string")
-     * @var string
+     * @var string $password 用户密码
+     * @Column(name="password", type="string", length=50, default="")
      */
-    private $desc = '';
+    private $password;
 
     /**
-     * 非数据库字段，未定义映射关系
-     *
-     * @var mixed
+     * @var int $type 用户类型[0:普通用户 1:管理员]
+     * @Column(name="type", type="tinyint", default=0)
      */
-    private $otherProperty;
+    private $type;
 
     /**
-     * @return int|null
+     * @var int $status 用户状态[0:正常 1:禁用]
+     * @Column(name="status", type="tinyint", default=0)
+     */
+    private $status;
+
+    /**
+     * @var string $createdTime 创建时间
+     * @Column(name="created_time", type="timestamp", default="0000-00-00 00:00:00")
+     */
+    private $createdTime;
+
+    /**
+     * @var string $updateTime 修改时间
+     * @Column(name="update_time", type="timestamp", default="0000-00-00 00:00:00")
+     */
+    private $updateTime;
+
+    /**
+     * 主键ID
+     * @param int $value
+     * @return $this
+     */
+    public function setId(int $value)
+    {
+        $this->id = $value;
+
+        return $this;
+    }
+
+    /**
+     * 用户昵称
+     * @param string $value
+     * @return $this
+     */
+    public function setNickname(string $value): self
+    {
+        $this->nickname = $value;
+
+        return $this;
+    }
+
+    /**
+     * 用户头像Url
+     * @param string $value
+     * @return $this
+     */
+    public function setPhotoUrl(string $value): self
+    {
+        $this->photoUrl = $value;
+
+        return $this;
+    }
+
+    /**
+     * 用户账号
+     * @param string $value
+     * @return $this
+     */
+    public function setAccount(string $value): self
+    {
+        $this->account = $value;
+
+        return $this;
+    }
+
+    /**
+     * 用户密码
+     * @param string $value
+     * @return $this
+     */
+    public function setPassword(string $value): self
+    {
+        $this->password = $value;
+
+        return $this;
+    }
+
+    /**
+     * 用户类型[0:普通用户 1:管理员]
+     * @param int $value
+     * @return $this
+     */
+    public function setType(int $value): self
+    {
+        $this->type = $value;
+
+        return $this;
+    }
+
+    /**
+     * 用户状态[0:正常 1:禁用]
+     * @param int $value
+     * @return $this
+     */
+    public function setStatus(int $value): self
+    {
+        $this->status = $value;
+
+        return $this;
+    }
+
+    /**
+     * 创建时间
+     * @param string $value
+     * @return $this
+     */
+    public function setCreatedTime(string $value): self
+    {
+        $this->createdTime = $value;
+
+        return $this;
+    }
+
+    /**
+     * 修改时间
+     * @param string $value
+     * @return $this
+     */
+    public function setUpdateTime(string $value): self
+    {
+        $this->updateTime = $value;
+
+        return $this;
+    }
+
+    /**
+     * 主键ID
+     * @return mixed
      */
     public function getId()
     {
@@ -89,90 +198,75 @@ class User extends Model
     }
 
     /**
-     * @param int|null $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param null|string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAge(): int
-    {
-        return $this->age;
-    }
-
-    /**
-     * @param int $age
-     */
-    public function setAge(int $age)
-    {
-        $this->age = $age;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSex(): int
-    {
-        return $this->sex;
-    }
-
-    /**
-     * @param int $sex
-     */
-    public function setSex(int $sex)
-    {
-        $this->sex = $sex;
-    }
-
-    /**
+     * 用户昵称
      * @return string
      */
-    public function getDesc(): string
+    public function getNickname()
     {
-        return $this->desc;
+        return $this->nickname;
     }
 
     /**
-     * @param string $desc
+     * 用户头像Url
+     * @return string
      */
-    public function setDesc(string $desc)
+    public function getPhotoUrl()
     {
-        $this->desc = $desc;
+        return $this->photoUrl;
     }
 
     /**
+     * 用户账号
+     * @return string
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+
+    /**
+     * 用户密码
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * 用户类型[0:普通用户 1:管理员]
+     * @return int
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * 用户状态[0:正常 1:禁用]
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * 创建时间
      * @return mixed
      */
-    public function getOtherProperty()
+    public function getCreatedTime()
     {
-        return $this->otherProperty;
+        return $this->createdTime;
     }
 
     /**
-     * @param mixed $otherProperty
+     * 修改时间
+     * @return mixed
      */
-    public function setOtherProperty($otherProperty)
+    public function getUpdateTime()
     {
-        $this->otherProperty = $otherProperty;
+        return $this->updateTime;
     }
+
 }

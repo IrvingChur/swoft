@@ -1,33 +1,45 @@
 <?php
-/**
- * This file is part of Swoft.
- *
- * @link https://swoft.org
- * @document https://doc.swoft.org
- * @contact group@swoft.org
- * @license https://github.com/swoft-cloud/swoft/blob/master/LICENSE
- */
 
 namespace App\Models\Dao;
 
-use Swoft\Bean\Annotation\Bean;
+use App\Models\Entity\User;
+use Swoft\App;
 
 /**
- *
- * @Bean()
- * @uses      UserDao
- * @version   2017年04月25日
- * @author    stelin <phpcrazy@126.com>
- * @copyright Copyright 2010-2016 Swoft software
- * @license   PHP Version 7.x {@link http://www.php.net/license/3_0.txt}
+ * Class UserDao
+ * @package App\Models\Dao
  */
 class UserDao
 {
-    public function getUserInfo()
+    /**
+     * 插入用户信息
+     * @param array $data
+     * @return int
+     */
+    public function insertUser(array $data): int
     {
-        return [
-            'uid' => 666,
-            'name' => 'stelin'
-        ];
+        $userEntity = App::getBean('NewModels')->getModelsObject('Entity', 'User');
+        $existsUser = $this->existsUser($data['account']);
+
+        if ($existsUser === false) {
+            return $userEntity->fill($data)->save()->getResult();
+        } else {
+            throw new \InvalidArgumentException("账号已存在");
+        }
+    }
+
+    /**
+     * 检测账户是否存在
+     * @param string $account
+     * @return bool
+     */
+    public function existsUser(string $account): bool
+    {
+        $userInfo = User::findOne(['account' => $account])->getResult();
+        if ($userInfo !== null) {
+            return true;
+        }
+
+        return false;
     }
 }

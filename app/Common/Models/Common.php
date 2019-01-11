@@ -7,7 +7,7 @@ use \Swoft\Bean\Annotation\Bean;
 /**
  * Class Common
  * @package App\Common\Models
- * @Bean("ModelsCommon")
+ * @Bean("Common")
  */
 class Common
 {

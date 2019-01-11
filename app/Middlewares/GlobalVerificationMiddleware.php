@@ -41,7 +41,7 @@ class GlobalVerificationMiddleware implements MiddlewareInterface
      * @param ServerRequestInterface $request
      * @return bool
      */
-    protected function verification(ServerRequestInterface $request)
+    protected function verification(ServerRequestInterface $request):bool
     {
         $secretKey = $request->getHeader('secretKey')[0];
         $debugMode = $request->getHeader('debugMode')[0];
