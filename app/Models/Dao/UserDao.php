@@ -11,6 +11,13 @@ use Swoft\App;
  */
 class UserDao
 {
+
+    // 用户状态[0:正常 1:禁用]
+    const USER_STATUS_NORMAL = 0;
+    const USER_STATUS_DISABLED = 1;
+
+    public $userInfo;
+
     /**
      * 插入用户信息
      * @param array $data
@@ -35,8 +42,11 @@ class UserDao
      */
     public function existsUser(string $account): bool
     {
-        $userInfo = User::findOne(['account' => $account])->getResult();
+        $map = ['account' => $account];
+
+        $userInfo = User::findOne($map)->getResult();
         if ($userInfo !== null) {
+            $this->userInfo = $userInfo->toArray();
             return true;
         }
 

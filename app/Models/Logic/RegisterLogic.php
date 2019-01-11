@@ -2,7 +2,7 @@
 
 namespace App\Models\Logic;
 
-use App\Models\Entity\User;
+use App\Models\Dao\UserDao;
 use Swoft\App;
 use Swoft\Bean\Annotation\Bean;
 use App\Common\Models\Common;
@@ -39,8 +39,7 @@ class RegisterLogic
                 'photoUrl' => $photoUrl,
                 'account' => $account,
                 'password' => md5($password),
-                'type' => User::USER_TYPE_NORMAL,
-                'status' => User::USER_STATUS_NORMAL,
+                'status' => UserDao::USER_STATUS_NORMAL,
                 'createdTime' => $timestamp,
                 'updateTime' => $timestamp,
             ];

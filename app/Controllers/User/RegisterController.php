@@ -64,7 +64,7 @@ class RegisterController{
     /**
      * 检测account是否存在
      * @RequestMapping(route="/register", method=RequestMethod::GET)
-     * @Strings(from=ValidatorFrom::POST, name="account", min=3, max=25, default="", template="字段{name}必须在{min}到{max}之间,您提交的值是{value}")
+     * @Strings(from=ValidatorFrom::GET, name="account", min=3, max=25, default="", template="字段{name}必须在{min}到{max}之间,您提交的值是{value}")
      * @param Request $request
      * @return array
      */

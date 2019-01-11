@@ -16,15 +16,6 @@ use Swoft\Db\Types;
  */
 class User extends Model
 {
-    // 用户类型
-    const USER_TYPE_NORMAL = 0; //普通
-    const USER_TYPE_ADMIN = 1; //管理员
-
-    // 用户状态
-    const USER_STATUS_NORMAL = 0; //正常
-    const USER_STATUS_DISABLED = 1; //禁用
-
-
     /**
      * @var int $id 主键ID
      * @Id()
@@ -55,12 +46,6 @@ class User extends Model
      * @Column(name="password", type="string", length=50, default="")
      */
     private $password;
-
-    /**
-     * @var int $type 用户类型[0:普通用户 1:管理员]
-     * @Column(name="type", type="tinyint", default=0)
-     */
-    private $type;
 
     /**
      * @var int $status 用户状态[0:正常 1:禁用]
@@ -136,18 +121,6 @@ class User extends Model
     public function setPassword(string $value): self
     {
         $this->password = $value;
-
-        return $this;
-    }
-
-    /**
-     * 用户类型[0:普通用户 1:管理员]
-     * @param int $value
-     * @return $this
-     */
-    public function setType(int $value): self
-    {
-        $this->type = $value;
 
         return $this;
     }
@@ -231,15 +204,6 @@ class User extends Model
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * 用户类型[0:普通用户 1:管理员]
-     * @return int
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

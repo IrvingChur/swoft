@@ -11,10 +11,10 @@ use Swoft\Db\Types;
 
 /**
  * @Entity()
- * @Table(name="user_details")
- * @uses      UserDetails
+ * @Table(name="user_login")
+ * @uses      UserLogin
  */
-class UserDetails extends Model
+class UserLogin extends Model
 {
     /**
      * @var int $id 主键ID
@@ -31,25 +31,13 @@ class UserDetails extends Model
     private $userId;
 
     /**
-     * @var string $wechatAccount 微信账号
-     * @Column(name="wechat_account", type="string", length=25)
+     * @var int $exception 异常登录[0:正常 1:异常]
+     * @Column(name="exception", type="tinyint", default=0)
      */
-    private $wechatAccount;
+    private $exception;
 
     /**
-     * @var string $email 电子邮件
-     * @Column(name="email", type="string", length=25)
-     */
-    private $email;
-
-    /**
-     * @var string $mobile 电话号码
-     * @Column(name="mobile", type="string", length=15)
-     */
-    private $mobile;
-
-    /**
-     * @var string $createdTime 创建时间
+     * @var string $createdTime 登录时间
      * @Column(name="created_time", type="timestamp", default="0000-00-00 00:00:00")
      */
     private $createdTime;
@@ -85,43 +73,19 @@ class UserDetails extends Model
     }
 
     /**
-     * 微信账号
-     * @param string $value
+     * 异常登录[0:正常 1:异常]
+     * @param int $value
      * @return $this
      */
-    public function setWechatAccount(string $value): self
+    public function setException(int $value): self
     {
-        $this->wechatAccount = $value;
+        $this->exception = $value;
 
         return $this;
     }
 
     /**
-     * 电子邮件
-     * @param string $value
-     * @return $this
-     */
-    public function setEmail(string $value): self
-    {
-        $this->email = $value;
-
-        return $this;
-    }
-
-    /**
-     * 电话号码
-     * @param string $value
-     * @return $this
-     */
-    public function setMobile(string $value): self
-    {
-        $this->mobile = $value;
-
-        return $this;
-    }
-
-    /**
-     * 创建时间
+     * 登录时间
      * @param string $value
      * @return $this
      */
@@ -163,34 +127,16 @@ class UserDetails extends Model
     }
 
     /**
-     * 微信账号
-     * @return string
+     * 异常登录[0:正常 1:异常]
+     * @return int
      */
-    public function getWechatAccount()
+    public function getException()
     {
-        return $this->wechatAccount;
+        return $this->exception;
     }
 
     /**
-     * 电子邮件
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * 电话号码
-     * @return string
-     */
-    public function getMobile()
-    {
-        return $this->mobile;
-    }
-
-    /**
-     * 创建时间
+     * 登录时间
      * @return mixed
      */
     public function getCreatedTime()
