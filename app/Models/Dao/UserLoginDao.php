@@ -15,6 +15,9 @@ class UserLoginDao
     const USER_LOGIN_NORMAL = 0;
     const USER_LOGIN_EXCEPTION = 1;
 
+    // 用户登录秘钥
+    const USER_LOGIN_KEY = 'login';
+
     /**
      * 插入用户登录信息
      * @param int $userId

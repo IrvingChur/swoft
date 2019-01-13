@@ -6,7 +6,7 @@
 namespace App\Models\Logic;
 
 
-use App\Models\Entity\UserLogin;
+use App\Models\Dao\UserLoginDao;
 use Swoft\App;
 
 class LoginLogic
@@ -54,7 +54,7 @@ class LoginLogic
             $this->message = '登录成功';
             // 生成token并保存信息
             $token = $result['account'];
-            $token = md5($token.UserLogin::USER_LOGIN_KEY);
+            $token = md5($token.UserLoginDao::USER_LOGIN_KEY);
             $loginToken = $result;
             $loginToken['token'] = $token;
             $loginToken = serialize($loginToken);
@@ -70,7 +70,7 @@ class LoginLogic
         // 增加登录记录
         App::getBean('NewModels')->getModelsObject('Data', 'LoginData')->recordLogin($userLoginData);
 
-        return true;
+        return ($exception === 1) ? false : true ;
     }
 
     /**
